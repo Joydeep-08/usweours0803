@@ -27,14 +27,12 @@ input[type=text],textarea{width:100%;padding:13px 16px;font-family:'DM Sans',san
 input[type=text]:focus,textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(224,92,138,0.08);}
 textarea{height:100px;line-height:1.6;}
 .f{margin-bottom:20px;}
-/* Relation */
 .rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .rel-lbl{cursor:pointer;position:relative;}
 .rel-lbl input{position:absolute;opacity:0;width:0;height:0;}
 .rel-box{display:flex;flex-direction:column;align-items:center;gap:5px;padding:16px 10px;border:1.5px solid rgba(224,92,138,0.14);border-radius:14px;background:rgba(253,250,246,0.6);transition:all .2s;text-align:center;}
 .rel-lbl input:checked ~ .rel-box{border-color:var(--rose);background:rgba(224,92,138,0.08);box-shadow:0 0 0 3px rgba(224,92,138,0.08);}
 .rel-em{font-size:24px;}.rel-nm{font-size:13px;font-weight:500;}.rel-ht{font-size:11px;color:var(--soft);opacity:.7;}
-/* Photos */
 .photos-row{display:flex;gap:10px;}
 .pslot{flex:1;aspect-ratio:1;border:2px dashed rgba(224,92,138,0.25);border-radius:12px;position:relative;overflow:hidden;background:rgba(253,250,246,0.5);transition:border-color .2s;cursor:pointer;}
 .pslot:hover{border-color:var(--rose);}
@@ -47,7 +45,6 @@ textarea{height:100px;line-height:1.6;}
 .del-x{position:absolute;top:3px;right:3px;width:17px;height:17px;border-radius:50%;background:rgba(255,255,255,0.95);border:none;font-size:9px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:4;color:#c0392b;font-weight:700;line-height:1;padding:0;}
 .pslot.filled .del-x{display:flex;}
 .hint{font-size:11px;color:var(--soft);opacity:.65;font-style:italic;margin-top:8px;}
-/* Balloons */
 .btags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;min-height:20px;}
 .btag{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:100px;font-size:12px;border:1.5px solid rgba(224,92,138,0.2);background:rgba(224,92,138,0.07);color:var(--rose);}
 .btag .x{cursor:pointer;font-size:10px;opacity:.6;padding:0 2px;}
@@ -56,11 +53,9 @@ textarea{height:100px;line-height:1.6;}
 .add-row input{flex:1;}
 .add-btn{padding:13px 18px;background:var(--rose);color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;white-space:nowrap;}
 .add-btn:hover{background:#c94d7a;}
-/* Submit */
 .submit-btn{width:100%;padding:19px;background:linear-gradient(135deg,var(--rose),#c94d7a);color:#fff;border:none;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;box-shadow:0 6px 28px rgba(224,92,138,0.3);transition:all .25s;margin-top:4px;}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(224,92,138,0.4);}
 .err{display:none;background:rgba(255,80,80,0.07);border:1.5px solid rgba(255,80,80,0.18);border-radius:12px;padding:12px 16px;color:#c0392b;font-size:13px;margin-bottom:14px;}
-/* Result */
 .result{display:none;background:rgba(255,255,255,0.9);border:1px solid var(--border);border-radius:22px;padding:36px;text-align:center;box-shadow:0 4px 30px rgba(224,92,138,0.08);margin-top:18px;}
 .result-icon{font-size:52px;margin-bottom:14px;}
 .result h3{font-family:'Fraunces',serif;font-size:28px;font-weight:400;margin-bottom:6px;}
@@ -150,6 +145,7 @@ textarea{height:100px;line-height:1.6;}
 
 <script>
 const BACKEND='https://makeherday.onrender.com';
+const SITE='https://usweours0803.joydeeppanda421.workers.dev';
 const presets={
   crush:["You make my heart skip 💓","Your smile is everything 🌸","You have no idea how special you are ✨","Just seeing you brightens my whole day 🦋","You are worth every nervous feeling 💫","I notice every little thing about you 🌹"],
   girlfriend:["You're my favourite person 💕","Thank you for existing 🌸","You make every single day brighter ✨","My heart chose well 💓","You are my home 🏡","Loving you is the easiest thing I do 🌹"],
@@ -165,18 +161,15 @@ const defaults={
 
 let rel='', balloons=[], photos=[null,null,null,null,null];
 
-// Build photo slots
 (function(){
   const row=document.getElementById('photoRow');
   for(let i=0;i<5;i++){
     const slot=document.createElement('div');
-    slot.className='pslot';
-    slot.id='ps'+i;
+    slot.className='pslot';slot.id='ps'+i;
     const inp=document.createElement('input');
     inp.type='file';inp.accept='image/*';
     inp.addEventListener('change',function(){loadPic(i,this);});
-    const img=document.createElement('img');
-    img.id='pi'+i;
+    const img=document.createElement('img');img.id='pi'+i;
     const icon=document.createElement('div');
     icon.className='picon';
     icon.innerHTML=(i===0?'📷':'🖼️')+'<small>'+(i===0?'Main':'+'+(i+1))+'</small>';
@@ -207,7 +200,6 @@ function removePic(i){
   if(inp)inp.value='';
 }
 
-// Relation radio
 document.querySelectorAll('input[name=rel]').forEach(function(r){
   r.addEventListener('change',function(){
     rel=this.value;
@@ -248,21 +240,16 @@ async function build(){
   if(!herName)return showErr('Please enter her name 🌸');
   if(balloons.length===0)return showErr('Add at least one balloon message 🎈');
 
-  // Show loading state
   var btn=document.querySelector('.submit-btn');
   btn.textContent='Creating… 🌸';btn.disabled=true;
 
-  // Compress photos
   var compressed=await Promise.all(photos.map(function(p){
     return p?compress(p,480,0.55):Promise.resolve(null);
   }));
 
   var payload={
-    n:herName,
-    f:yourName,
-    r:rel,
-    m:msg||defaults[rel],
-    b:balloons,
+    n:herName,f:yourName,r:rel,
+    m:msg||defaults[rel],b:balloons,
     p:compressed.filter(Boolean)
   };
 
@@ -276,7 +263,7 @@ async function build(){
     var data=await resp.json();
     if(!data.id)throw new Error('No ID returned');
 
-   var url=window.location.origin+'/usweours0803/view.html?id='+data.id;;
+    var url=SITE+'/view.html?id='+data.id;
     window._url=url;
     document.getElementById('linkText').textContent=url;
     document.getElementById('openLink').href=url;
