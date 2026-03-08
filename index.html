@@ -276,7 +276,7 @@ async function build(){
     var data=await resp.json();
     if(!data.id)throw new Error('No ID returned');
 
-    var url=window.location.origin+'/view.html?id='+data.id;
+   var url=window.location.origin+'/usweours0803/view.html?id='+data.id;;
     window._url=url;
     document.getElementById('linkText').textContent=url;
     document.getElementById('openLink').href=url;
