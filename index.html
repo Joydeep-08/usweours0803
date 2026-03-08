@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Create Her Surprise 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--rose:#e05c8a;--cream:#fdfaf6;--deep:#2d1a24;--soft:#9b6b7e;--border:rgba(224,92,138,0.15);}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);min-height:100vh;}
+.blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.blob1{width:500px;height:500px;background:rgba(224,92,138,0.08);top:-100px;right:-100px;}
+.blob2{width:400px;height:400px;background:rgba(212,149,106,0.07);bottom:-80px;left:-80px;}
+header{position:relative;z-index:2;text-align:center;padding:52px 20px 20px;}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--rose);background:rgba(224,92,138,0.08);border:1px solid rgba(224,92,138,0.2);padding:7px 18px;border-radius:100px;margin-bottom:18px;}
+h1{font-family:'Fraunces',serif;font-size:clamp(38px,8vw,72px);font-weight:300;line-height:1.05;color:var(--deep);}
+h1 em{font-style:italic;color:var(--rose);}
+.sub{margin-top:10px;font-size:14px;color:var(--soft);}
+.wrap{position:relative;z-index:2;max-width:680px;margin:28px auto 80px;padding:0 18px;}
+.card{background:rgba(255,255,255,0.88);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:22px;padding:36px;margin-bottom:18px;box-shadow:0 4px 30px rgba(224,92,138,0.06);}
+.step-n{width:26px;height:26px;border-radius:50%;background:var(--rose);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.card-title{font-family:'Fraunces',serif;font-size:21px;font-weight:400;margin-bottom:4px;}
+.card-sub{font-size:12px;color:var(--soft);margin-bottom:22px;}
+.lbl{display:block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--soft);margin-bottom:7px;}
+input[type=text],textarea{width:100%;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--deep);background:rgba(253,250,246,0.8);border:1.5px solid rgba(224,92,138,0.14);border-radius:12px;outline:none;transition:border-color .2s,box-shadow .2s;resize:none;}
+input[type=text]:focus,textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(224,92,138,0.08);}
+textarea{height:100px;line-height:1.6;}
+.f{margin-bottom:20px;}
+/* Relation */
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.rel-lbl{cursor:pointer;position:relative;}
+.rel-lbl input{position:absolute;opacity:0;width:0;height:0;}
+.rel-box{display:flex;flex-direction:column;align-items:center;gap:5px;padding:16px 10px;border:1.5px solid rgba(224,92,138,0.14);border-radius:14px;background:rgba(253,250,246,0.6);transition:all .2s;text-align:center;}
+.rel-lbl input:checked ~ .rel-box{border-color:var(--rose);background:rgba(224,92,138,0.08);box-shadow:0 0 0 3px rgba(224,92,138,0.08);}
+.rel-em{font-size:24px;}.rel-nm{font-size:13px;font-weight:500;}.rel-ht{font-size:11px;color:var(--soft);opacity:.7;}
+/* Photos */
+.photos-row{display:flex;gap:10px;}
+.pslot{flex:1;aspect-ratio:1;border:2px dashed rgba(224,92,138,0.25);border-radius:12px;position:relative;overflow:hidden;background:rgba(253,250,246,0.5);transition:border-color .2s;cursor:pointer;}
+.pslot:hover{border-color:var(--rose);}
+.pslot input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:3;}
+.pslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:1;}
+.pslot.filled img{display:block;}
+.picon{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;color:rgba(224,92,138,0.4);pointer-events:none;z-index:0;}
+.picon small{font-size:9px;color:var(--soft);opacity:.6;margin-top:3px;}
+.pslot.filled .picon{display:none;}
+.del-x{position:absolute;top:3px;right:3px;width:17px;height:17px;border-radius:50%;background:rgba(255,255,255,0.95);border:none;font-size:9px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:4;color:#c0392b;font-weight:700;line-height:1;padding:0;}
+.pslot.filled .del-x{display:flex;}
+.hint{font-size:11px;color:var(--soft);opacity:.65;font-style:italic;margin-top:8px;}
+/* Balloons */
+.btags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;min-height:20px;}
+.btag{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:100px;font-size:12px;border:1.5px solid rgba(224,92,138,0.2);background:rgba(224,92,138,0.07);color:var(--rose);}
+.btag .x{cursor:pointer;font-size:10px;opacity:.6;padding:0 2px;}
+.btag .x:hover{opacity:1;}
+.add-row{display:flex;gap:8px;}
+.add-row input{flex:1;}
+.add-btn{padding:13px 18px;background:var(--rose);color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;white-space:nowrap;}
+.add-btn:hover{background:#c94d7a;}
+/* Submit */
+.submit-btn{width:100%;padding:19px;background:linear-gradient(135deg,var(--rose),#c94d7a);color:#fff;border:none;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;box-shadow:0 6px 28px rgba(224,92,138,0.3);transition:all .25s;margin-top:4px;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(224,92,138,0.4);}
+.err{display:none;background:rgba(255,80,80,0.07);border:1.5px solid rgba(255,80,80,0.18);border-radius:12px;padding:12px 16px;color:#c0392b;font-size:13px;margin-bottom:14px;}
+/* Result */
+.result{display:none;background:rgba(255,255,255,0.9);border:1px solid var(--border);border-radius:22px;padding:36px;text-align:center;box-shadow:0 4px 30px rgba(224,92,138,0.08);margin-top:18px;}
+.result-icon{font-size:52px;margin-bottom:14px;}
+.result h3{font-family:'Fraunces',serif;font-size:28px;font-weight:400;margin-bottom:6px;}
+.result p{color:var(--soft);font-size:13px;margin-bottom:22px;}
+.link-box{display:flex;gap:8px;align-items:center;background:rgba(224,92,138,0.05);border:1.5px solid rgba(224,92,138,0.14);border-radius:12px;padding:12px 16px;margin-bottom:14px;}
+.link-box span{flex:1;font-size:12px;color:var(--rose);word-break:break-all;text-align:left;}
+.copy-btn{background:var(--rose);color:#fff;border:none;border-radius:9px;padding:7px 14px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.open-btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--rose),#c94d7a);color:#fff;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;text-decoration:none;box-shadow:0 6px 20px rgba(224,92,138,0.3);margin-bottom:10px;}
+.reset-btn{background:transparent;color:var(--rose);border:1.5px solid rgba(224,92,138,0.22);border-radius:12px;padding:12px 24px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:6px;display:block;width:100%;}
+</style>
+</head>
+<body>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<header>
+  <div class="badge">🌸 Women's Day · 8th March</div>
+  <h1>Create <em>Her</em> Surprise</h1>
+  <p class="sub">A beautiful 4-tab experience — photos, balloons &amp; a personal message</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <div class="step-n">1</div>
+    <div class="card-title">She is my…</div>
+    <div class="card-sub">Sets the tone of the whole experience</div>
+    <div class="rel-grid">
+      <label class="rel-lbl"><input type="radio" name="rel" value="crush"/><div class="rel-box"><span class="rel-em">🦋</span><span class="rel-nm">Crush</span><span class="rel-ht">Someone special</span></div></label>
+      <label class="rel-lbl"><input type="radio" name="rel" value="girlfriend"/><div class="rel-box"><span class="rel-em">💕</span><span class="rel-nm">Girlfriend</span><span class="rel-ht">My partner</span></div></label>
+      <label class="rel-lbl"><input type="radio" name="rel" value="wife"/><div class="rel-box"><span class="rel-em">💍</span><span class="rel-nm">Wife</span><span class="rel-ht">My forever</span></div></label>
+      <label class="rel-lbl"><input type="radio" name="rel" value="mother"/><div class="rel-box"><span class="rel-em">🌺</span><span class="rel-nm">Mother</span><span class="rel-ht">My world</span></div></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="step-n">2</div>
+    <div class="card-title">About her</div>
+    <div class="card-sub">The basics that make it personal</div>
+    <div class="f"><label class="lbl">Her Name *</label><input type="text" id="herName" placeholder="Priya, Aisha, Sara…"/></div>
+    <div class="f"><label class="lbl">Your Name (optional)</label><input type="text" id="yourName" placeholder="Who is this from?"/></div>
+  </div>
+
+  <div class="card">
+    <div class="step-n">3</div>
+    <div class="card-title">Her photos</div>
+    <div class="card-sub">Up to 5 photos — shown in the Memories tab</div>
+    <div class="photos-row" id="photoRow"></div>
+    <p class="hint">✨ First photo is her main portrait on the Home tab</p>
+  </div>
+
+  <div class="card">
+    <div class="step-n">4</div>
+    <div class="card-title">Balloon messages 🎈</div>
+    <div class="card-sub">She pops each balloon to reveal a sweet message inside</div>
+    <div class="btags" id="bTags"></div>
+    <div class="add-row">
+      <input type="text" id="bInput" placeholder="Write your own sweet message…" onkeydown="if(event.key==='Enter'){event.preventDefault();addBalloon();}"/>
+      <button class="add-btn" onclick="addBalloon()">+ Add</button>
+    </div>
+    <p class="hint" id="bHint">← Select relationship above to load preset sweet messages</p>
+  </div>
+
+  <div class="card">
+    <div class="step-n">5</div>
+    <div class="card-title">Final message 💌</div>
+    <div class="card-sub">The heartfelt note in the last tab — leave blank for a beautiful default</div>
+    <div class="f"><label class="lbl">Your Message</label><textarea id="msg" placeholder="Leave blank and a beautiful message will be written for you…"></textarea></div>
+  </div>
+
+  <div class="err" id="errBox"></div>
+  <button class="submit-btn" onclick="build()">✨ &nbsp; Create Her Surprise &nbsp; →</button>
+
+  <div class="result" id="resultBox">
+    <div class="result-icon">🎀</div>
+    <h3>Ready to share!</h3>
+    <p>Send this link — she'll tap through all 4 tabs 💕</p>
+    <div class="link-box">
+      <span id="linkText">—</span>
+      <button class="copy-btn" onclick="copyIt()">Copy</button>
+    </div>
+    <a id="openLink" class="open-btn" href="#" target="_blank">Open &amp; Preview →</a>
+    <button class="reset-btn" onclick="resetAll()">Make another ↩</button>
+  </div>
+
+</div>
+
+<script>
+const BACKEND='https://makeherday.onrender.com';
+const presets={
+  crush:["You make my heart skip 💓","Your smile is everything 🌸","You have no idea how special you are ✨","Just seeing you brightens my whole day 🦋","You are worth every nervous feeling 💫","I notice every little thing about you 🌹"],
+  girlfriend:["You're my favourite person 💕","Thank you for existing 🌸","You make every single day brighter ✨","My heart chose well 💓","You are my home 🏡","Loving you is the easiest thing I do 🌹"],
+  wife:["My forever person 💍","Every year with you is a gift 🌸","You are my greatest adventure ✨","I'd choose you a thousand times over 💓","My heart is yours always 🌹","You complete me in every way 💫"],
+  mother:["My first hero 🌺","The strongest woman I know 💪","Thank you for everything, always 🌸","Your love is my foundation ✨","The world is better with you in it 💓","I love you more than words can say 💫"]
+};
+const defaults={
+  crush:`There's something about you that makes ordinary days feel like something out of a dream. On this Women's Day, I want you to know that your light touches everything around you — your laughter, your presence, the way you carry yourself. You are, without a single doubt, someone worth admiring. Here's to you, always.`,
+  girlfriend:`Every single day with you is a gift I never take for granted. You are my calm in chaos, my joy in the mundane, my home wherever we are. On this Women's Day, I celebrate the extraordinary woman you are — the strength you carry, the love you give, and the magic you create just by being you. I am so lucky.`,
+  wife:`Years may pass, seasons may change, but the way I feel about you only grows deeper. You are the foundation of everything beautiful in my life. On this Women's Day, I celebrate not just the woman you are, but the life you've built with me — your sacrifices, your love, your laughter that fills our home. You are my greatest blessing.`,
+  mother:`If there is one person who has shaped who I am, it is you. Your love has been my shelter, your voice my compass, your hands the safest place I've ever known. On this Women's Day, I want to say what I don't say enough — thank you. For everything. For every moment. For being you. I love you more than words can hold.`
+};
+
+let rel='', balloons=[], photos=[null,null,null,null,null];
+
+// Build photo slots
+(function(){
+  const row=document.getElementById('photoRow');
+  for(let i=0;i<5;i++){
+    const slot=document.createElement('div');
+    slot.className='pslot';
+    slot.id='ps'+i;
+    const inp=document.createElement('input');
+    inp.type='file';inp.accept='image/*';
+    inp.addEventListener('change',function(){loadPic(i,this);});
+    const img=document.createElement('img');
+    img.id='pi'+i;
+    const icon=document.createElement('div');
+    icon.className='picon';
+    icon.innerHTML=(i===0?'📷':'🖼️')+'<small>'+(i===0?'Main':'+'+(i+1))+'</small>';
+    const del=document.createElement('button');
+    del.className='del-x';del.textContent='✕';del.type='button';
+    del.addEventListener('click',function(e){e.stopPropagation();removePic(i);});
+    slot.appendChild(inp);slot.appendChild(img);slot.appendChild(icon);slot.appendChild(del);
+    row.appendChild(slot);
+  }
+})();
+
+function loadPic(i,inp){
+  if(!inp.files||!inp.files[0])return;
+  const r=new FileReader();
+  r.onload=function(e){
+    photos[i]=e.target.result;
+    document.getElementById('pi'+i).src=e.target.result;
+    document.getElementById('ps'+i).classList.add('filled');
+  };
+  r.readAsDataURL(inp.files[0]);
+}
+
+function removePic(i){
+  photos[i]=null;
+  document.getElementById('pi'+i).src='';
+  document.getElementById('ps'+i).classList.remove('filled');
+  const inp=document.querySelector('#ps'+i+' input[type=file]');
+  if(inp)inp.value='';
+}
+
+// Relation radio
+document.querySelectorAll('input[name=rel]').forEach(function(r){
+  r.addEventListener('change',function(){
+    rel=this.value;
+    balloons=presets[rel].slice();
+    renderTags();
+    document.getElementById('bHint').textContent='✨ Tap ✕ to remove any, or type your own below';
+  });
+});
+
+function renderTags(){
+  const c=document.getElementById('bTags');
+  c.innerHTML='';
+  balloons.forEach(function(b,i){
+    const t=document.createElement('div');
+    t.className='btag';
+    t.innerHTML='🎈 '+b+' <span class="x" data-i="'+i+'">✕</span>';
+    t.querySelector('.x').addEventListener('click',function(){removeBalloon(parseInt(this.dataset.i));});
+    c.appendChild(t);
+  });
+}
+
+function removeBalloon(i){balloons.splice(i,1);renderTags();}
+
+function addBalloon(){
+  var v=document.getElementById('bInput').value.trim();
+  if(!v)return;
+  balloons.push(v);renderTags();
+  document.getElementById('bInput').value='';
+}
+
+async function build(){
+  var herName=document.getElementById('herName').value.trim();
+  var yourName=document.getElementById('yourName').value.trim();
+  var msg=document.getElementById('msg').value.trim();
+  var errBox=document.getElementById('errBox');
+  errBox.style.display='none';
+  if(!rel)return showErr('Please select your relationship first 💕');
+  if(!herName)return showErr('Please enter her name 🌸');
+  if(balloons.length===0)return showErr('Add at least one balloon message 🎈');
+
+  // Show loading state
+  var btn=document.querySelector('.submit-btn');
+  btn.textContent='Creating… 🌸';btn.disabled=true;
+
+  // Compress photos
+  var compressed=await Promise.all(photos.map(function(p){
+    return p?compress(p,480,0.55):Promise.resolve(null);
+  }));
+
+  var payload={
+    n:herName,
+    f:yourName,
+    r:rel,
+    m:msg||defaults[rel],
+    b:balloons,
+    p:compressed.filter(Boolean)
+  };
+
+  try{
+    var resp=await fetch(BACKEND+'/api/save',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    if(!resp.ok)throw new Error('Server error '+resp.status);
+    var data=await resp.json();
+    if(!data.id)throw new Error('No ID returned');
+
+    var url=window.location.origin+'/view.html?id='+data.id;
+    window._url=url;
+    document.getElementById('linkText').textContent=url;
+    document.getElementById('openLink').href=url;
+    document.getElementById('resultBox').style.display='block';
+    document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'center'});
+
+  }catch(e){
+    showErr('Could not connect to server. Make sure Render is running! ('+e.message+')');
+  }finally{
+    btn.textContent='✨ \u00a0 Create Her Surprise \u00a0 →';btn.disabled=false;
+  }
+}
+
+function compress(dataURL,maxPx,q){
+  return new Promise(function(res){
+    var img=new Image();
+    img.onload=function(){
+      var w=img.width,h=img.height;
+      if(w>h){if(w>maxPx){h=Math.round(h*maxPx/w);w=maxPx;}}
+      else{if(h>maxPx){w=Math.round(w*maxPx/h);h=maxPx;}}
+      var c=document.createElement('canvas');
+      c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      res(c.toDataURL('image/jpeg',q));
+    };
+    img.src=dataURL;
+  });
+}
+
+function showErr(m){
+  var b=document.getElementById('errBox');
+  b.textContent='⚠️ '+m;b.style.display='block';
+  b.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function copyIt(){
+  var url=window._url||document.getElementById('openLink').href;
+  navigator.clipboard.writeText(url).then(function(){
+    var b=document.querySelector('.copy-btn');
+    b.textContent='Copied ✓';setTimeout(function(){b.textContent='Copy';},2000);
+  });
+}
+
+function resetAll(){
+  rel='';balloons=[];photos=[null,null,null,null,null];
+  ['herName','yourName','msg'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('bTags').innerHTML='';
+  document.getElementById('resultBox').style.display='none';
+  document.getElementById('errBox').style.display='none';
+  document.querySelectorAll('input[name=rel]').forEach(function(r){r.checked=false;});
+  for(var i=0;i<5;i++){
+    document.getElementById('ps'+i).classList.remove('filled');
+    document.getElementById('pi'+i).src='';
+    var inp=document.querySelector('#ps'+i+' input[type=file]');
+    if(inp)inp.value='';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
